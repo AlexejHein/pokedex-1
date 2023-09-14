@@ -1,5 +1,3 @@
-let firstAbility;
-let secondAbility;
 let thirdAbility;
 let backgroundColor;
 let typeColor1;
@@ -8,31 +6,28 @@ let pokemonStatsNames = [];
 let pokemonStatsValues = [];
 
 
-function renderOverlay(pokemon) {
-    document.getElementById(`pokemonInfoCard${pokemon}`);
-
-    renderColors(pokemon);
-    renderAbilities(pokemon);
-    createChart(pokemon);
-    getBaseStats(pokemon);
-
-    document.getElementById(`pokemonInfoCard${pokemon}`).innerHTML = renderOverlay(pokemon);
-
+function renderOverlay(i) {
+        document.getElementById('overlay').innerHTML = pokemonOverlay(i);
+        renderColors(i);
+        renderAbilities(i);
+        createChart(i);
+    
+    getBaseStats(i);
 }
 
 
 // COLORS
-function getInfoCardBackgroundColors(pokemon) {
-    let pokemonInfoCard = document.getElementById(`pokemonInfoCard${pokemon}`);
+function getInfoCardBackgroundColors(i) {
+    let pokemonInfoCard = document.getElementById(`pokemonInfoCard${i}`);
     backgroundColor = backgroundColours[pokemonType1]; // pokemonType1 == backgroundColours[i]
 
     pokemonInfoCard.style.backgroundColor = backgroundColor;
 }
 
 
-function getInfoCardTypeColors(pokemon) {
-    let firstTypeInfoCard = document.getElementById(`firstTypeInfoCard${pokemon}`);
-    let secondTypeInfoCard = document.getElementById(`secondTypeInfoCard${pokemon}`);
+function getInfoCardTypeColors(i) {
+    let firstTypeInfoCard = document.getElementById(`firstTypeInfoCard${i}`);
+    let secondTypeInfoCard = document.getElementById(`secondTypeInfoCard${i}`);
 
     typeColor1 = typeColours[pokemonType1];
     typeColor2 = typeColours[pokemonType2];
@@ -42,37 +37,37 @@ function getInfoCardTypeColors(pokemon) {
 }
 
 
-function renderColors(pokemon) {
-    getInfoCardBackgroundColors(pokemon);
-    getInfoCardTypeColors(pokemon);
+function renderColors(i) {
+    getInfoCardBackgroundColors(i);
+    getInfoCardTypeColors(i);
 }
 
 
 // ABILITIES
-function renderAbilities(pokemon) {
+function renderAbilities() {
     firstAbility = '';
     secondAbility = '';
     thirdAbility = '';
 
-    getAbilitiesBasedOnAmount(pokemon);
+    getAbilitiesBasedOnAmount();
 }
 
 
-function getAbilitiesBasedOnAmount(pokemon) {
-    oneAbility(pokemon);
-    twoAbilities(pokemon);
-    threeAbilities(pokemon);
+function getAbilitiesBasedOnAmount() {
+    oneAbility();
+    twoAbilities();
+    threeAbilities();
 }
 
 
-function oneAbility(pokemon) {
+function oneAbility() {
     if (pokemon['abilities'].length == 1) {
         firstAbility = pokemon['abilities'][0]['ability']['name'];
     }
 }
 
 
-function twoAbilities(pokemon) {
+function twoAbilities() {
     if (pokemon['abilities'].length == 2) {
         firstAbility = pokemon['abilities'][0]['ability']['name'] + ',';
         secondAbility = pokemon['abilities'][1]['ability']['name'];
@@ -80,7 +75,7 @@ function twoAbilities(pokemon) {
 }
 
 
-function threeAbilities(pokemon) {
+function threeAbilities() {
     if (pokemon['abilities'].length == 3) {
         firstAbility = pokemon['abilities'][0]['ability']['name'] + ',';
         secondAbility = pokemon['abilities'][1]['ability']['name'] + ',';
@@ -90,7 +85,7 @@ function threeAbilities(pokemon) {
 
 
 // BASE STATS
-function getBaseStats(pokemon) {
+function getBaseStats() {
     let stats = pokemon['stats'];
     for (let i = 0; i < stats.length; i++) {
         let statsNames = stats[i]['stat']['name'];
@@ -132,11 +127,13 @@ function showBaseStats(i) { // templates.js
 }
 
 
-function openOverlay(pokemon) {
-    renderOverlay(pokemon);
+function openOverlay(i) {
     document.body.style.overflow = 'hidden';
     document.getElementById('mainContent').classList.add('dNone');
     document.getElementById('overlay').classList.remove('dNone');
+    console.log(loadedPokemon[i]);
+    renderOverlay(i);
+
 }
 
 
@@ -152,11 +149,11 @@ function doNotClose(event) { // prevents overlay from closing when clicking in i
 }
 
 
-function showNextCard(i) {
-    openOverlay(i + 1);
-}
+// function showNextCard(i) {
+//     openOverlay(i + 1);
+// }
 
 
-function showPreviousCard(i) {
-    openOverlay(i - 1);
-}
+// function showPreviousCard(i) {
+//     openOverlay(i - 1);
+// }

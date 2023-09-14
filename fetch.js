@@ -1,5 +1,5 @@
 async function fetchAllPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=150'
+    let url = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=10'
     let response = await fetch(url);
     allPokemon = await response.json();
 }

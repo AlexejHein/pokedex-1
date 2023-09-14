@@ -16,8 +16,9 @@ function pokemonThumbnail(i) {
         `;
 }
 
-
+// ein pockemon mit der i nummer wird in die overlay geladen
 function pokemonOverlay(i) {
+    let pokemon = loadedPokemon[i];
     return /*html*/`
     <div onclick="doNotClose(event)" class="pokemonInfoCard" id="pokemonInfoCard${i}">
         <div class="padding2432">
@@ -63,7 +64,6 @@ function pokemonOverlay(i) {
                     <div class="statsContentValues">
                         <span>${pokemon['height'] * 10} cm</span>
                         <span>${pokemon['weight'] / 10} kg</span>
-                        <span>${firstAbility} ${secondAbility} ${thirdAbility}</span>
                     </div>
                 </div>
             </div>
@@ -80,3 +80,5 @@ function pokemonOverlay(i) {
     </div >
         `;
 }
+//hab ich rausgenomen schau wie du es anpasseb kannst
+//<!-- <span>${firstAbility} ${secondAbility} ${thirdAbility}</span> -->
